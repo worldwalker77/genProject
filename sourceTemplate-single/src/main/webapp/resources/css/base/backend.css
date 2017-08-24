@@ -1,0 +1,75 @@
+@CHARSET "UTF-8";
+
+/*begin override native style*/
+body {
+	font-family: "Microsoft Yahei", 微软雅黑, "Helvetica Neue", Arial,
+		sans-serif;
+}
+
+/* panel */
+.panel {
+  margin-bottom: 5px;
+}
+
+.panel-body {
+  padding: 5px;
+}
+
+/* row 行距*/
+.row {
+	padding-top : 3px;
+	padding-bottom : 3px;
+}
+
+/* the same color with .info */
+.table-hover>tbody>tr:hover {
+	background-color: #d9edf7;
+}
+
+/* the same color with .info */
+.fixed-table-container tbody .selected td {
+    background-color: #d9edf7;
+}
+
+/* table align */
+.fixed-table-container .table thead tr th,
+.fixed-table-container .table tbody tr td,
+.fixed-table-container .bs-checkbox {
+	text-align: center;
+	vertical-align: middle;
+}
+
+/* 缩略图*/
+.img-thumbnail {
+	width: 100%;
+	height: 72px;
+	text-align: center;
+}
+
+/*end override native style*/
+
+/*begin customize style*/
+
+/* 必填项"*" 号*/
+.require-star:before {
+	color : #ff0000;
+	content : "* ";
+}
+
+.input-group-block {
+	padding-bottom : 6px;
+}
+
+/*操作列菜单样式*/
+.operator-column>.open>.dropdown-menu {
+	width: 60px;
+	min-width : 50px;
+}
+.operator-column>.open>.dropdown-menu>li>a {
+	padding-left: 5px;
+}
+.operator-column>.open>.dropdown-menu>li>a:hover {
+	background-color: #D9EDF7;
+}
+/*end customize style*/
+

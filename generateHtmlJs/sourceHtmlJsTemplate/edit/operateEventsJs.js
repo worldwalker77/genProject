@@ -1,0 +1,4 @@
+﻿operateEvents : {
+		${editButtonClickJs}
+		${statusButtonClickJs}
+	},

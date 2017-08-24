@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd"
+	default-autowire="byName">
+	
+	<!-- 负载均衡参数配置 -->
+	<bean name ="weightLoadBalancer" class="com.zhaogang.dragonstrike.client.loadbalance.WeightLoadBalancer">  
+         <property name="weightMap">
+            <map>
+            	<entry key="testGroupNode">
+            		<map>
+            			<entry key="172.16.9.34:8080" value="1" />
+		                <entry key="172.16.9.34:8081" value="3" />
+		                <entry key="172.16.9.34:8082" value="6" />
+            		</map>
+            	</entry>
+            </map>
+        </property>  
+    </bean>  
+    
+    <!-- soa hessian服务 -->
+	<bean id="hessianTestService" class="com.zhaogang.dragonstrike.client.proxy.DragonStrikeProxyFactoryBean">  
+	    <property name="serviceInterface" value="com.zhaogang.pricesoa.client.HessianTest" />  
+	    <property name="servicePathName" value="/hessianProvider/hessianTestService" />
+	    <property name="groupNode" value="testGroupNode" />
+	    <property name="loadBalancer" ref="weightLoadBalancer" /><!--这里如果不配置，默认就是轮询策略  -->
+    </bean>
+    
+    <!-- 连接zookeeper -->
+    <bean name ="serviceConsumHandler" class="com.zhaogang.dragonstrike.client.servicecomsue.ServiceConsumHandler">  
+        <property name="zkAddress" value="0.0.0.0:2181" />  
+        <property name="groupNodeList">
+            <list>
+                <value>testGroupNode</value>
+            </list>
+        </property>
+    </bean>  
+    
+</beans>
